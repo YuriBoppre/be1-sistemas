@@ -7,11 +7,12 @@ export class DatabaseConnectionService {
   private connection;
   private readonly logger = new Logger(DatabaseConnectionService.name);
 
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) { }
 
-  async connectToDatabase(dbPath: string): Promise<any> {
-    const provider = this.configService.get<string>('ACCESS_PROVIDER');
-    
+  async connectToDatabase(module: string): Promise<any> {
+    const provider = this.configService.get<string>('ACCESS_PROVIDER'),
+      dbPath = this.configService.get<string>(module.toUpperCase());
+
     if (!provider) {
       this.logger.error('Provider para conexão com Access não configurado');
       throw new InternalServerErrorException('Provider não configurado');
@@ -32,10 +33,9 @@ export class DatabaseConnectionService {
     return this.connection;
   }
 
-  async closeConnection() : Promise<void> {
+  async closeConnection(): Promise<void> {
     if (this.connection) {
       try {
-        // await this.connection.close();
         this.connection = null;
         this.logger.log('Conexão com o banco de dados Access encerrada.');
       } catch (er) {
