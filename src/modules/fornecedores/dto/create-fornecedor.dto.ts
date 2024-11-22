@@ -1,15 +1,15 @@
-import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsInt } from 'class-validator';
 
 export class CreateFornecedorDto {
   @IsNotEmpty()
+  @IsInt()
+  IDTipo: number;
+  
+  @IsNotEmpty()
   @IsString()
-  nome: string;
+  Nome: string;
 
   @IsOptional()
   @IsString()
-  uf?: string;
-
-  @IsOptional()
-  @IsString()
-  tipo?: string;
+  UF?: string;
 }

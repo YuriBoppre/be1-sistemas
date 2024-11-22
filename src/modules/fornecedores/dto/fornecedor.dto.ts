@@ -3,13 +3,17 @@ import { IsNotEmpty, IsString, IsOptional, IsInt } from 'class-validator';
 export class FornecedorDto {
   @IsNotEmpty()
   @IsInt()
-  idTipo: number;
+  IDCadastro: number;
+
+  @IsNotEmpty()
+  @IsInt()
+  IDTipo: number;
   
   @IsNotEmpty()
   @IsString()
-  nome: string;
+  Nome: string;
 
   @IsOptional()
   @IsString()
-  uf?: string;
+  UF?: string;
 }

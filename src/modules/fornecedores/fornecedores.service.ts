@@ -5,27 +5,26 @@ import { FornecedorDto } from './dto/fornecedor.dto';
 
 @Injectable()
 export class FornecedoresService {
+  private readonly fieldMapping = {
+    IDCadastro: '[ID Cadastro]',
+    IDTipo: '[ID Tipo]',
+    Nome: 'nome',
+    UF: 'uf',
+  };
+
+
   constructor(private readonly accessRepository: AccessRepository) { }
 
   async create(data: CreateFornecedorDto) {
-    //return await this.accessRepository.insert('Cadastros', data);
+    // return await this.accessRepository.insert('Cadastros', this.fieldMapping);
   }
 
-  async findAll(filters: Record<string, any>/*, dto: FornecedorDto*/) {
-
-    // if (!dto) {
-    // const dto = new FornecedorDto();
-    // }
-
-    const dtoFields = ['idCadastro', 'nome', 'uf'] as (keyof FornecedorDto)[];
+  async findAll(filters: Record<string, any>) {
+    const dtoFields = ['IDCadastro', 'IDTipo', 'Nome', 'UF'] as (keyof FornecedorDto)[];
     
-    const fieldMapping = {
-      idCadastro: '[ID Cadastro]',
-      nome: 'Nome',
-      uf: 'uf',
-    };
+    
 
-    return await this.accessRepository.find('Cadastros', dtoFields, filters, fieldMapping);
+    return await this.accessRepository.find('Cadastros', dtoFields, filters, this.fieldMapping);
   }
 
   async findOne() {
